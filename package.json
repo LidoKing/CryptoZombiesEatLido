@@ -1,0 +1,21 @@
+{
+  "name": "cryptozombies",
+  "version": "1.0.0",
+  "description": "CryptoZombies",
+  "main": "index.js",
+  "scripts": {
+    "test": "truffle test",
+    "init": "truffle init",
+    "compile": "truffle compile",
+    "testrpc": "ganache-cli",
+    "migrate": "truffle migrate"
+  },
+  "author": "LidoKing",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "ganache": "^6.4.4",
+    "ganache-cli": "^6.9.1",
+    "truffle": "^5.1.16"
+  }
+}
