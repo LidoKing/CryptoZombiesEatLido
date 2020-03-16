@@ -1,5 +1,8 @@
 const CryptoZombies = artifacts.require("ZombieFactory");
+<<<<<<< HEAD
 const Ownership = artifacts.require("ZombieOwnership");
+=======
+>>>>>>> 011b04a2209b520a9eb9c178cedea7a313f2c7e8
 const utils = require("./helpers/utils");
 const time = require("./helpers/time");
 var expect = require('chai').expect;
@@ -8,16 +11,25 @@ contract("CryptoZombies", (accounts) => {
     let [alice, bob] = accounts;
     let contractInstance;
     beforeEach(async () => {
+<<<<<<< HEAD
       contractInstance = await CryptoZombies.new();
     });
     it("should be able to create a new zombie", async () => {
       //contractInstance = await CryptoZombies.new();
+=======
+        contractInstance = await CryptoZombies.new();
+    });
+    it("should be able to create a new zombie", async () => {
+>>>>>>> 011b04a2209b520a9eb9c178cedea7a313f2c7e8
         const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
         expect(result.receipt.status).to.equal(true);
         expect(result.logs[0].args.name).to.equal(zombieNames[0]);
     })
     it("should not allow two zombies", async () => {
+<<<<<<< HEAD
       //contractInstance = await CryptoZombies.new();
+=======
+>>>>>>> 011b04a2209b520a9eb9c178cedea7a313f2c7e8
         await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
         await utils.shouldThrow(contractInstance.createRandomZombie(zombieNames[1], {from: alice}));
     })
@@ -32,9 +44,12 @@ contract("CryptoZombies", (accounts) => {
         expect(result.receipt.status).to.equal(true);
     })
     context("with the single-step transfer scenario", async () => {
+<<<<<<< HEAD
       beforeEach(async () => {
         contractInstance = await Ownership.new();
       });
+=======
+>>>>>>> 011b04a2209b520a9eb9c178cedea7a313f2c7e8
         it("should transfer a zombie", async () => {
             const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
             const zombieId = result.logs[0].args.zombieId.toNumber();
@@ -44,9 +59,12 @@ contract("CryptoZombies", (accounts) => {
         })
     })
     context("with the two-step transfer scenario", async () => {
+<<<<<<< HEAD
       beforeEach(async () => {
         contractInstance = await Ownership.new();
       });
+=======
+>>>>>>> 011b04a2209b520a9eb9c178cedea7a313f2c7e8
         it("should approve and then transfer a zombie when the approved address calls transferForm", async () => {
             const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
             const zombieId = result.logs[0].args.zombieId.toNumber();
