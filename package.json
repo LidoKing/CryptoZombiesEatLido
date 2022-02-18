@@ -17,5 +17,17 @@
     "ganache": "^6.4.4",
     "ganache-cli": "^6.9.1",
     "truffle": "^5.1.16"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LidoKing/CryptoZombiesEatLido.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LidoKing/CryptoZombiesEatLido/issues"
+  },
+  "homepage": "https://github.com/LidoKing/CryptoZombiesEatLido#readme"
 }
