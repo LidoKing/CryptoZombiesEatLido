@@ -13,11 +13,13 @@
   "author": "LidoKing",
   "license": "ISC",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.3",
     "chai": "^4.2.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "ganache": "^7.0.2",
-    "truffle": "^5.1.16"
+    "truffle": "^5.1.16",
+    "web3": "^1.7.0"
   },
   "directories": {
     "test": "test"
