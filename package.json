@@ -14,14 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",
-    "ganache": "^6.4.4",
+    "express": "^4.17.3",
+    "ganache": "^7.0.2",
     "ganache-cli": "^6.9.1",
     "truffle": "^5.1.16"
   },
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LidoKing/CryptoZombiesEatLido.git"
