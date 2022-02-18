@@ -2,8 +2,7 @@
 
 pragma solidity >=0.8.0 <0.9.0;
 
-import "./ownable.sol";
-import "./safemath.sol";
+import "../utils/ownable.sol";
 
 contract ZombieFactory is Ownable {
 
