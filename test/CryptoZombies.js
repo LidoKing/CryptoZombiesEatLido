@@ -1,5 +1,4 @@
 const CryptoZombies = artifacts.require("ZombieFactory");
-const Ownership = artifacts.require("ZombieOwnership");
 const utils = require("./helpers/utils");
 const time = require("./helpers/time");
 var expect = require('chai').expect;
