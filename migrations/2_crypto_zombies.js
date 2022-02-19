@@ -1,4 +1,4 @@
-const CryptoZombies = artifacts.require("ZombieFactory");
+const CryptoZombies = artifacts.require("CryptoZombies");
 
 module.exports = function(deployer) {
   deployer.deploy(CryptoZombies);
