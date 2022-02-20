@@ -34,13 +34,31 @@ contract("CryptoZombies", (accounts) => {
     context("ATTACK AND FEEDING", async () => {
       it("zombies should be able to attack another zombie", async () => {
           let result;
+          // create zombie
           result = await instance.createRandomZombie(zombieNames[0], {from: alice});
           const firstZombieId = result.logs[0].args.zombieId.toNumber();
+          // create another zombie
           result = await instance.createRandomZombie(zombieNames[1], {from: bob});
           const secondZombieId = result.logs[0].args.zombieId.toNumber();
+          // fast forward time to bypass cooldown
           await time.increase(time.duration.days(1));
+          // initiatae attack
           await instance.attack(firstZombieId, secondZombieId, {from: alice});
           expect(result.receipt.status).to.equal(true);
+      });
+
+      // Can't test, no cryptokitties contract on testing network
+      xit("should feed on a kitty", async () => {
+        // create a zombie
+        const result = await instance.createRandomZombie(zombieNames[0], {from: alice});
+        const zombieId = result.logs[0].args.zombieId.toNumber();
+        // fast forward time to bypass cooldown
+        await time.increase(time.duration.days(1));
+        // feed on kitty
+        await instance.feedOnKitty(zombieId, 1);
+        // get number of owned zombies
+        const owned = await instance.balanceOf(alice);
+        expect(owned.toNumber()).to.equal(2);
       });
     });
 
@@ -71,7 +89,7 @@ contract("CryptoZombies", (accounts) => {
             const newOwner = await instance.ownerOf(zombieId);
             expect(newOwner).to.equal(bob);
         });
-        
+
         it("should approve and then transfer a zombie when the owner calls transferForm", async () => {
             // create a zombie
             const result = await instance.createRandomZombie(zombieNames[0], {from: alice});
@@ -112,6 +130,30 @@ contract("CryptoZombies", (accounts) => {
         const zombie = await instance.zombies(zombieId);
         const newName = zombie.name;
         expect(newName).to.equal("new name");
+      });
+    });
+
+    context("OWNER FUNCTIONS", async () => {
+      it("should transfer ownership", async () => {
+        await instance.transferOwnership(bob, {from: alice});
+        const newOwner = await instance.owner();
+        expect(newOwner).to.equal(bob);
+      });
+
+      it("should withdraw money from contract", async () => {
+        // create a zombie
+        const result = await instance.createRandomZombie(zombieNames[0], {from: bob});
+        const zombieId = result.logs[0].args.zombieId.toNumber();
+        // level up zombie
+        await instance.levelUp(zombieId, {from: alice, value: web3.utils.toWei("0.001", "ether")});
+        // withdraw contract money
+        let money;
+        money = await web3.eth.getBalance(instance.address);
+        console.log(money);
+        expect(web3.utils.fromWei(money)).to.equal(0.001);
+        await insatnce.withdraw({from: alice});
+        money = await web3.eth.getBalance(instance.address);
+        expect(web3.utils.fromWei(money)).to.equal(0);
       });
     });
 });
