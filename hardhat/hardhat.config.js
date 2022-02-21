@@ -36,13 +36,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
      },
 
      rinkeby: {
-       url: "https://eth-rinkeby.alchemyapi.io/v2/123abc123abc123abc123abc123abcde",
-       accounts: []
+       url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
+       accounts: [`${process.env.TESTNET_PRIVATE_KEY}`]
      },
 
      ropsten: {
        url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
-       accounts: [`${process.env.ROPSTEN_PRIVATE_KEY}`]
+       accounts: [`${process.env.TESTNET_PRIVATE_KEY}`]
      }
    },
 
