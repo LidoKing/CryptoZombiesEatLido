@@ -7,6 +7,7 @@ import "./zombiefeeding.sol";
 contract ZombieHelper is ZombieFeeding {
 
   uint levelUpFee = 0.001 ether;
+  uint public contractBalance;
 
   modifier aboveLevel(uint _level, uint _zombieId) {
     require(zombies[_zombieId].level >= _level);
@@ -15,7 +16,7 @@ contract ZombieHelper is ZombieFeeding {
 
   function withdraw() external payable onlyOwner {
     address payable _owner = payable(owner());
-    _owner.transfer(address(this).balance);
+    _owner.transfer(contractBalance);
   }
 
   function setLevelUpFee(uint _fee) external onlyOwner {
@@ -25,6 +26,7 @@ contract ZombieHelper is ZombieFeeding {
   function levelUp(uint _zombieId) external payable {
     require(msg.value == levelUpFee);
     zombies[_zombieId].level++;
+    contractBalance += msg.value;
   }
 
   function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) onlyOwnerOf(_zombieId) {
