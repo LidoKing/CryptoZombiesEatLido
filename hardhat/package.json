@@ -9,6 +9,7 @@
   "author": "LidoKing",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "hardhat": "^2.8.4",
     "hardhat-tracer": "^1.0.0-alpha.6"
   },
