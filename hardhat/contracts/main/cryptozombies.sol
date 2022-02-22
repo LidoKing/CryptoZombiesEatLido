@@ -7,7 +7,7 @@ import "./zombieownership.sol";
 contract CryptoZombies is ZombieOwnership {
   function readyAttack(uint _id) external onlyOwner {
     Zombie storage theZombie = zombies[_id];
-    theZombie.readyTime = block.timestamp;
+    theZombie.readyTime = uint32(block.timestamp);
   }
 
   function kill() external onlyOwner {
