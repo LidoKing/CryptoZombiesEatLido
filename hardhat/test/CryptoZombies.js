@@ -1,7 +1,8 @@
 const CryptoZombies = artifacts.require("CryptoZombies");
 const utils = require("./helpers/utils");
 const time = require("./helpers/time");
-const web3 = require('web3');
+const web3utils = require('web3-utils');
+const web3eth = require('web3-eth');
 var expect = require('chai').expect;
 const zombieNames = ["Zombie 1", "Zombie 2"];
 
@@ -111,7 +112,7 @@ contract("CryptoZombies", (accounts) => {
         const result = await instance.createRandomZombie(zombieNames[0], {from: alice});
         const zombieId = result.logs[0].args.zombieId.toNumber();
         // level up zombie
-        await instance.levelUp(zombieId, {from: alice, value: web3.utils.toWei("0.001", "ether")});
+        await instance.levelUp(zombieId, {from: alice, value: web3utils.toWei("0.001", "ether")});
         // get zombie level
         const zombie = await instance.zombies(zombieId);
         const level = zombie.level.toNumber();
@@ -123,7 +124,7 @@ contract("CryptoZombies", (accounts) => {
         const result = await instance.createRandomZombie(zombieNames[0], {from: alice});
         const zombieId = result.logs[0].args.zombieId.toNumber();
         // level up zombie to level 2
-        await instance.levelUp(zombieId, {from: alice, value: web3.utils.toWei("0.001", "ether")});
+        await instance.levelUp(zombieId, {from: alice, value: web3utils.toWei("0.001", "ether")});
         // change zombie name
         await instance.changeName(zombieId, "new name", {from: alice});
         // get new zombie name
@@ -145,15 +146,13 @@ contract("CryptoZombies", (accounts) => {
         const result = await instance.createRandomZombie(zombieNames[0], {from: bob});
         const zombieId = result.logs[0].args.zombieId.toNumber();
         // level up zombie
-        await instance.levelUp(zombieId, {from: alice, value: web3.utils.toWei("0.001", "ether")});
+        await instance.levelUp(zombieId, {from: alice, value: web3utils.toWei("0.001", "ether")});
         // withdraw contract money
-        let money;
-        money = await web3.eth.getBalance(instance.address);
-        console.log(money);
-        expect(web3.utils.fromWei(money)).to.equal(0.001);
-        await insatnce.withdraw({from: alice});
-        money = await web3.eth.getBalance(instance.address);
-        expect(web3.utils.fromWei(money)).to.equal(0);
+        let money = await instance.contractBalance();
+        expect(web3utils.fromWei(money)).to.equal('0.001');
+        await instance.withdraw({from: alice});
+        let balance = await web3eth.getBalance(instance.address);
+        expect(web3utils.fromWei(balance)).to.equal('0');
       });
     });
 });
