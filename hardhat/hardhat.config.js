@@ -11,6 +11,7 @@ require("hardhat-tracer");
 require("@atixlabs/hardhat-time-n-mine");
 // npx hardhat export-abi
 require('hardhat-abi-exporter');
+require('hardhat-gas-reporter');
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -90,5 +91,17 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
     // only: [':ERC20$'],
     spacing: 2,
     pretty: true,
+  },
+
+  gasReporter: {
+    enabled: true,
+    currency: "USD",
+    coinmarketcap: "3c9160b9-382c-48bd-8873-b0936d7a914d",
+    // gasPrice: ,
+    token: "MATIC",
+    gasPriceApi: "https://api.polygonscan.com/api?module=proxy&action=eth_gasPrice",
+    // outputFile: stdout,
+    noColors: false,
+    excludeContracts: ['Greeter']
   }
  };
